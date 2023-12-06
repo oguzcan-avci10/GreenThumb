@@ -1,4 +1,6 @@
 ﻿using GreenThumb.Data;
+using GreenThumb.Models;
+using GreenThumb.Views;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,14 +19,35 @@ namespace GreenThumb
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<PlantModel> plants;
+        private PlantModel? filteredPlant;
         public MainWindow()
         {
             InitializeComponent();
+
+            using ( PlantDbContext context = new())
+            {
+                PlantsUow uow = new(context);
+
+                plants = uow.PlantRepository.GetAll();
+
+                foreach(var plant in plants)
+                {
+                    ListViewItem item = new();
+                    item.Tag = plant;
+                    item.Content = plant.Name; 
+                    lstPlants.Items.Add(item);
+                    lstPlants.IsEnabled = false;
+                }
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+
             // Hämta input och kolla om det finns en växt som matchar med hämtad input
+
+            lstPlants.IsEnabled = true;
 
             string searchText = txtSearch.Text.ToLower();
 
@@ -39,12 +62,13 @@ namespace GreenThumb
                 {
                     PlantsUow uow = new(context);
 
-                    var plant = uow.PlantRepository.GetPlantByName(searchText); 
-                    if (plant != null)
+                    filteredPlant = uow.PlantRepository.GetByName(searchText); 
+                    if (filteredPlant != null)
                     {
+                        lstPlants.Items.Clear();
                         ListViewItem item = new ListViewItem();
-                        item.Tag = plant;
-                        item.Content = plant.Name;
+                        item.Tag = filteredPlant;
+                        item.Content = filteredPlant.Name;
                         lstPlants.Items.Add(item);
                         return;
                     }
@@ -55,6 +79,61 @@ namespace GreenThumb
                 }
             }
 
+        }
+        // Ta fram detaljer om en växt
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            ListViewItem selectedPlant = (ListViewItem)lstPlants.SelectedItem;
+            PlantModel plantToShow = (PlantModel)selectedPlant.Tag;
+
+            PlantDetailsWindow plantDetails = new PlantDetailsWindow(plantToShow);
+            plantDetails.Show();
+            Close();
+        }
+        // Ta bort växt
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            lstPlants.IsEnabled = false;
+
+            ListViewItem selectedPlant = (ListViewItem)lstPlants.SelectedItem;  
+            PlantModel plantToDelete = (PlantModel)selectedPlant.Tag;   
+
+            using (PlantDbContext context = new())
+            {
+                PlantsUow uow = new(context);
+                uow.PlantRepository.Delete(plantToDelete.Name);
+
+            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            // Rensa listview:en och hämta alla plantor igen
+
+            lstPlants.Items.Clear();
+            using (PlantDbContext context = new())
+            {
+                PlantsUow uow = new(context);
+
+                plants = uow.PlantRepository.GetAll();
+
+                foreach (var plant in plants)
+                {
+                    ListViewItem item = new();
+                    item.Tag = plant;
+                    item.Content = plant.Name;
+                    lstPlants.Items.Add(item);
+                    
+                    
+                }
+            }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddPlantWindow addPlantWindow = new();
+            addPlantWindow.Show();
+            Close();
         }
     }
 }

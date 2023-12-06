@@ -54,7 +54,7 @@
             Content="Delete"
             FontSize="12"
             Width="50"
-            Height="25">
+            Height="25" Click="btnDelete_Click">
         </Button>
 
         <Button
@@ -64,7 +64,7 @@
             Content="Details"
             FontSize="12"
             Width="50"
-            Height="25"/>
+            Height="25" Click="btnDetails_Click"/>
 
         <Image 
             Grid.Column="1"
@@ -86,7 +86,7 @@
             Height="25"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
-            Margin="20,0,0,0"/>
+            Margin="20,0,0,0" Click="btnAdd_Click"/>
 
         <TextBox
             Name="txtSearch"
@@ -106,5 +106,14 @@
             Width="50"
             Margin="0,0,70,0" Click="btnSearch_Click"/>
 
+        <Button
+            Name="btnBack"
+            Grid.Column="5"
+            Grid.Row="4"
+            Height="25"
+            Width="50"
+            Content="Back"
+            HorizontalAlignment="Left"
+            Margin="30,0,0,0" Click="btnBack_Click"/>
     </Grid>
 </Window>

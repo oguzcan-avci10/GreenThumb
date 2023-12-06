@@ -9,22 +9,19 @@ namespace GreenThumb.Data
 {
     public class PlantsUow
     {
-        private readonly PlantDbContext _conext;
+        private readonly PlantDbContext _context;
 
         public PlantRepository<PlantModel> PlantRepository { get; }
         public PlantRepository<InstructionModel> InstructionRepository { get; }
 
         public PlantsUow(PlantDbContext context)
         {
-            _conext = context;
+            _context = context;
 
             PlantRepository = new(context);
             InstructionRepository = new(context);   
         }
 
-        public async Task Complete()
-        {
-            await _conext.SaveChangesAsync();
-        }
+       
     }
 }

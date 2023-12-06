@@ -3,6 +3,7 @@ using GreenThumb.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenThumb.Migrations
 {
     [DbContext(typeof(PlantDbContext))]
-    partial class PlantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206125400_AddedInstructions")]
+    partial class AddedInstructions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,30 +126,6 @@ namespace GreenThumb.Migrations
                             InstructionId = 13,
                             InstructionInfo = "Watering the plant",
                             PlantId = 9
-                        },
-                        new
-                        {
-                            InstructionId = 14,
-                            InstructionInfo = "During fall and winter, you can water them less often.",
-                            PlantId = 7
-                        },
-                        new
-                        {
-                            InstructionId = 15,
-                            InstructionInfo = "Put them in sunlight if you have them indoors.",
-                            PlantId = 7
-                        },
-                        new
-                        {
-                            InstructionId = 16,
-                            InstructionInfo = "During fall and winter, you can water them less often.",
-                            PlantId = 6
-                        },
-                        new
-                        {
-                            InstructionId = 17,
-                            InstructionInfo = "Put them in sunlight if you have them indoors.",
-                            PlantId = 6
                         });
                 });
 

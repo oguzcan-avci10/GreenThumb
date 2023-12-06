@@ -18,10 +18,34 @@ namespace GreenThumb.Data
             _context = context;
             _dbSet = context.Set<T>();
         }
-
-        public PlantModel? GetPlantByName(string plantName)
+        // Hämta alla plantor med tillhörande instruktioner
+        public PlantModel? GetByName(string plantName)
         {
-            return _context.Plants.FirstOrDefault(p => p.Name == plantName);
+            return _context.Plants.Include(p => p.Instructions).FirstOrDefault(p => p.Name == plantName);/*FirstOrDefault(p => p.Name == plantName);*/
         }
+
+        // Hämta alla plantor
+        public List<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+        // Delete plant
+        public void Delete(string plantName)
+        {
+            var plants = _context.Plants.ToList();
+
+            foreach (var p in plants)
+            {
+                if (p.Name == plantName) 
+                {
+                    _context.Plants.Remove(p);
+                    _context.SaveChanges();
+                    
+                }
+
+            }
+        }
+
+       
     }
 }

@@ -112,6 +112,85 @@ namespace GreenThumb.Data
                     InstructionId = 4,
                     InstructionInfo = "Provide 1 to 2 inches (2.5 to 5.1 cm) of water each week.",
                     PlantId = 3
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 5,
+                    InstructionInfo = "Watering the plant",
+                    PlantId = 10
+                },
+                new InstructionModel()
+                {
+                    
+                    InstructionId = 6,
+                    InstructionInfo = "Put them in sunlight if you have them indoors.",
+                    PlantId = 2
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 7,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 2
+                },
+                new InstructionModel()
+                {
+                    InstructionId= 8,
+                    InstructionInfo = "Watering the plant",
+                    PlantId = 9
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 9,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 4
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 10,
+                    InstructionInfo = "Put them in sunlight if you have them indoors.",
+                    PlantId = 4
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 11,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 5
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 12,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 8
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 13,
+                    InstructionInfo = "Watering the plant",
+                    PlantId = 9
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 14,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 7
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 15,
+                    InstructionInfo = "Put them in sunlight if you have them indoors.",
+                    PlantId = 7
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 16,
+                    InstructionInfo = "During fall and winter, you can water them less often.",
+                    PlantId = 6
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 17,
+                    InstructionInfo = "Put them in sunlight if you have them indoors.",
+                    PlantId = 6
                 });
         }
 
