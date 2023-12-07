@@ -20,7 +20,8 @@ namespace GreenThumb.Views
     /// </summary>
     public partial class PlantDetailsWindow : Window
     {
-        public PlantDetailsWindow(PlantModel plant)  // Hämta plant och visa info
+        // Hämta växt och visa info
+        public PlantDetailsWindow(PlantModel plant)  
         {
             InitializeComponent();
 

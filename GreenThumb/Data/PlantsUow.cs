@@ -12,7 +12,7 @@ namespace GreenThumb.Data
         private readonly PlantDbContext _context;
 
         public PlantRepository<PlantModel> PlantRepository { get; }
-        public PlantRepository<InstructionModel> InstructionRepository { get; }
+        public InstructionRepository<InstructionModel> InstructionRepository { get; }
 
         public PlantsUow(PlantDbContext context)
         {
@@ -21,7 +21,5 @@ namespace GreenThumb.Data
             PlantRepository = new(context);
             InstructionRepository = new(context);   
         }
-
-       
     }
 }

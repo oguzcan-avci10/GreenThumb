@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GreenThumb.Data;
+using GreenThumb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,7 @@ namespace GreenThumb.Views
     /// </summary>
     public partial class AddPlantWindow : Window
     {
+        private List<PlantModel> plants = new();
         public AddPlantWindow()
         {
             InitializeComponent();
@@ -31,9 +34,66 @@ namespace GreenThumb.Views
             Close();
         }
 
+        // Lägg till ny växt
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            string plantName = txtName.Text;
+            string? plantDescription = txtDescription.Text;
 
+            if (string.IsNullOrEmpty(plantDescription))
+            {
+                plantDescription = null;
+            }
+
+            string instruction = txtInstruction.Text;
+
+            if (string.IsNullOrEmpty(plantName) || string.IsNullOrEmpty(instruction))
+            {
+                MessageBox.Show("Name and instruction must be added", "Warning");
+                return;
+            }
+            else
+            {
+                using (PlantDbContext context = new())
+                {
+                    PlantsUow uow = new(context);
+
+                    plants = uow.PlantRepository.GetAll();
+
+                    PlantModel plantToAdd = new()
+                    {
+                        Name = plantName,
+                        Description = plantDescription
+                    };
+
+                    foreach (var plant in plants)
+                    {
+                        if (plant.Name.ToLower() == plantToAdd.Name.ToLower())
+                        {
+                            MessageBox.Show("This plant already exists!", "Warning");
+                            txtName.Clear();
+                            txtDescription.Clear();
+                            txtInstruction.Clear();
+                            return;
+                        }
+                    }
+
+                    uow.PlantRepository.AddPlant(plantToAdd);
+
+                    InstructionModel instructionToAdd = new()
+                    {
+                        InstructionInfo = instruction,
+                        PlantId = plantToAdd.PlantId
+                    };
+
+                    uow.InstructionRepository.AddInstruction(instructionToAdd);
+
+                    MessageBox.Show($"Added {plantToAdd.Name} successfully.", "Success");
+                    txtName.Clear();
+                    txtDescription.Clear();
+                    txtInstruction.Clear(); 
+                }
+            }
         }
     }
 }

@@ -37,9 +37,13 @@ namespace GreenThumb
                     item.Tag = plant;
                     item.Content = plant.Name; 
                     lstPlants.Items.Add(item);
-                    lstPlants.IsEnabled = false;
+                    
                 }
             }
+
+            btnDelete.Visibility = Visibility.Hidden;
+            btnDetails.Visibility = Visibility.Hidden;
+            txtSearch.Clear();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -47,7 +51,6 @@ namespace GreenThumb
 
             // Hämta input och kolla om det finns en växt som matchar med hämtad input
 
-            lstPlants.IsEnabled = true;
 
             string searchText = txtSearch.Text.ToLower();
 
@@ -65,6 +68,9 @@ namespace GreenThumb
                     filteredPlant = uow.PlantRepository.GetByName(searchText); 
                     if (filteredPlant != null)
                     {
+                        btnDelete.Visibility= Visibility.Visible;
+                        btnDetails.Visibility= Visibility.Visible;
+
                         lstPlants.Items.Clear();
                         ListViewItem item = new ListViewItem();
                         item.Tag = filteredPlant;
@@ -83,18 +89,30 @@ namespace GreenThumb
         // Ta fram detaljer om en växt
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
-            ListViewItem selectedPlant = (ListViewItem)lstPlants.SelectedItem;
-            PlantModel plantToShow = (PlantModel)selectedPlant.Tag;
+            if(lstPlants.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a plant!", "Warning");
+            }
+            else
+            {
+                ListViewItem selectedPlant = (ListViewItem)lstPlants.SelectedItem;
+                PlantModel plantToShow = (PlantModel)selectedPlant.Tag;
 
-            PlantDetailsWindow plantDetails = new PlantDetailsWindow(plantToShow);
-            plantDetails.Show();
-            Close();
+                PlantDetailsWindow plantDetails = new PlantDetailsWindow(plantToShow);
+                plantDetails.Show();
+                Close();
+            }
+
         }
         // Ta bort växt
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            lstPlants.IsEnabled = false;
-
+            if(lstPlants.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a plant!", "Warning");
+                return;
+            }
+            
             ListViewItem selectedPlant = (ListViewItem)lstPlants.SelectedItem;  
             PlantModel plantToDelete = (PlantModel)selectedPlant.Tag;   
 
@@ -102,8 +120,10 @@ namespace GreenThumb
             {
                 PlantsUow uow = new(context);
                 uow.PlantRepository.Delete(plantToDelete.Name);
-
             }
+
+            MessageBox.Show($"Deleted {plantToDelete.Name}.", "Success");
+            lstPlants.Items.Clear();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -123,10 +143,10 @@ namespace GreenThumb
                     item.Tag = plant;
                     item.Content = plant.Name;
                     lstPlants.Items.Add(item);
-                    
-                    
                 }
             }
+
+            txtSearch.Clear();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

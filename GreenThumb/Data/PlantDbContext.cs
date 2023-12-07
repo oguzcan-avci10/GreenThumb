@@ -92,105 +92,111 @@ namespace GreenThumb.Data
                 new InstructionModel()
                 {
                     InstructionId = 1,
-                    InstructionInfo = "Watering the plant",
+                    InstructionInfo = "Water the plant",
                     PlantId = 1
                 },
                 new InstructionModel
                 {
                     InstructionId = 2,
-                    InstructionInfo = "Put them in sunlight if you have them indoors.",
-                    PlantId = 2
+                    InstructionInfo = "Your plant should flower after about 8 weeks.",
+                    PlantId = 1
                 },
                 new InstructionModel
                 {
                     InstructionId = 3,
-                    InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 3
+                    InstructionInfo = "Watering infrequently. They're a desert plant. Dry soil suits them fine",
+                    PlantId = 2
                 },
                 new InstructionModel
                 {
                     InstructionId = 4,
-                    InstructionInfo = "Provide 1 to 2 inches (2.5 to 5.1 cm) of water each week.",
-                    PlantId = 3
+                    InstructionInfo = "Keep your plant in a bright, sunny spot",
+                    PlantId = 2
                 },
                 new InstructionModel()
                 {
                     InstructionId = 5,
-                    InstructionInfo = "Watering the plant",
-                    PlantId = 10
+                    InstructionInfo = "Keep your plant in a bright, sunny spot",
+                    PlantId = 3
                 },
                 new InstructionModel()
                 {
                     
                     InstructionId = 6,
-                    InstructionInfo = "Put them in sunlight if you have them indoors.",
-                    PlantId = 2
+                    InstructionInfo = "Provide 1 to 2 inches (2.5 to 5cm) of water each week",
+                    PlantId = 3
                 },
                 new InstructionModel()
                 {
                     InstructionId = 7,
                     InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 2
+                    PlantId = 4
                 },
                 new InstructionModel()
                 {
                     InstructionId= 8,
-                    InstructionInfo = "Watering the plant",
-                    PlantId = 9
-                },
-                new InstructionModel()
-                {
-                    InstructionId = 9,
-                    InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 4
-                },
-                new InstructionModel()
-                {
-                    InstructionId = 10,
-                    InstructionInfo = "Put them in sunlight if you have them indoors.",
-                    PlantId = 4
-                },
-                new InstructionModel()
-                {
-                    InstructionId = 11,
                     InstructionInfo = "During fall and winter, you can water them less often.",
                     PlantId = 5
                 },
                 new InstructionModel()
                 {
+                    InstructionId = 9,
+                    InstructionInfo = "Mow New Grass and Control Weeds",
+                    PlantId = 5
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 10,
+                    InstructionInfo = "Water thoroughly once or twice a week depending on weather conditions.",
+                    PlantId = 6
+                },
+                new InstructionModel()
+                {
+                    InstructionId = 11,
+                    InstructionInfo = "For a healthy grove of timber bamboo, remove old, dead, weak and leaning canes,",
+                    PlantId = 6
+                },
+                new InstructionModel()
+                {
                     InstructionId = 12,
-                    InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 8
+                    InstructionInfo = "Keep your plant in a bright, sunny spot",
+                    PlantId = 7
                 },
                 new InstructionModel()
                 {
                     InstructionId = 13,
-                    InstructionInfo = "Watering the plant",
-                    PlantId = 9
+                    InstructionInfo = "4 feet tall: Apply 2 pounds of fertilizer ",
+                    PlantId = 8
                 },
                 new InstructionModel()
                 {
                     InstructionId = 14,
-                    InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 7
+                    InstructionInfo = "10 feet tall: Apply 5 pounds of fertilizer ",
+                    PlantId = 8
                 },
                 new InstructionModel()
                 {
                     InstructionId = 15,
-                    InstructionInfo = "Put them in sunlight if you have them indoors.",
-                    PlantId = 7
+                    InstructionInfo = "20 feet tall: Apply 10 pounds of fertilizer",
+                    PlantId = 8
                 },
                 new InstructionModel()
                 {
                     InstructionId = 16,
                     InstructionInfo = "During fall and winter, you can water them less often.",
-                    PlantId = 6
+                    PlantId = 9
                 },
                 new InstructionModel()
                 {
                     InstructionId = 17,
-                    InstructionInfo = "Put them in sunlight if you have them indoors.",
-                    PlantId = 6
+                    InstructionInfo = "The ideal indoor location for this plant is near a window with filtered sunlight.",
+                    PlantId = 10
+                },
+                new InstructionModel
+                {
+                    InstructionId = 18,
+                    InstructionInfo = "Keep the soil evenly moist but not soggy during the growing season.",
+                    PlantId = 10
                 });
         }
 
