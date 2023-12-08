@@ -92,6 +92,10 @@ namespace GreenThumb.Views
                     txtName.Clear();
                     txtDescription.Clear();
                     txtInstruction.Clear(); 
+
+                    MainWindow mainWindow = new MainWindow(); // Kolla om denna behövs
+                    mainWindow.Show();
+                    Close();
                 }
             }
         }

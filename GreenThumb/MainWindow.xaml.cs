@@ -128,7 +128,7 @@ namespace GreenThumb
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            // Rensa listview:en och hämta alla plantor igen
+           // Rensa listview:en och hämta alla plantor igen
 
             lstPlants.Items.Clear();
             using (PlantDbContext context = new())
@@ -147,6 +147,12 @@ namespace GreenThumb
             }
 
             txtSearch.Clear();
+
+            // Fixa så att detail och delete blir inaktiverade på Homepage
+
+            btnDelete.Visibility = Visibility.Hidden;
+            btnDetails.Visibility = Visibility.Hidden;
+            
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
