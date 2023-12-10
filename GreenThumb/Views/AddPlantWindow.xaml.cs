@@ -21,7 +21,8 @@ namespace GreenThumb.Views
     /// </summary>
     public partial class AddPlantWindow : Window
     {
-        private List<PlantModel> plants = new();
+        private List<PlantModel> _plants = new();
+        private string _currentPlantName;
         public AddPlantWindow()
         {
             InitializeComponent();
@@ -35,69 +36,92 @@ namespace GreenThumb.Views
         }
 
         // Lägg till ny växt
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAddPlant_Click(object sender, RoutedEventArgs e)
         {
             string plantName = txtName.Text;
-            string? plantDescription = txtDescription.Text;
+            string? description = txtDescription.Text;
 
-            if (string.IsNullOrEmpty(plantDescription))
+            if (string.IsNullOrEmpty(plantName))
             {
-                plantDescription = null;
+                MessageBox.Show("Plant must hava a name!", "Warning");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(description))
+            {
+                description = null;
+            }
+
+            using (PlantDbContext context = new())
+            {
+                PlantsUow uow = new(context);
+
+                _plants = uow.PlantRepository.GetAll();
+
+                PlantModel plantToAdd = new PlantModel()
+                {
+                    Name = plantName,
+                    Description = description
+                };
+                _currentPlantName = plantToAdd.Name;
+
+                foreach (var plant in _plants)
+                {
+                    if(plant.Name.ToLower() == plantToAdd.Name.ToLower())
+                    {
+                        MessageBox.Show("This plant already exists!", "Warning");
+                        return;
+                    }
+                }
+                
+                uow.PlantRepository.AddPlant(plantToAdd);
+
+                MessageBox.Show($"Added {plantToAdd.Name}", "Success");
+            }
+        }
+
+
+        // För att lägga till en instruktion behöver man först lägga till en växt
+        // Sparar växtens namn i _currentPlantName
+        // Hämtar växten med hjälp av _currentPlantName och sätter instruktionens plantId (foreign key) till _currentPlant.PlantId
+
+        private void btnAddInstruction_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_currentPlantName))
+            {
+                MessageBox.Show("Must add a plant before adding instructions!", "Warning");
+                return;
             }
 
             string instruction = txtInstruction.Text;
 
-            if (string.IsNullOrEmpty(plantName) || string.IsNullOrEmpty(instruction))
+            if (string.IsNullOrEmpty(instruction))
             {
-                MessageBox.Show("Name and instruction must be added", "Warning");
+                MessageBox.Show("Instruction must have content!", "Warning");
                 return;
             }
-            else
+
+            using (PlantDbContext context = new())
             {
-                using (PlantDbContext context = new())
+                PlantsUow uow = new(context);
+
+                PlantModel? currentPlant = uow.PlantRepository.GetByName(_currentPlantName);
+                if (currentPlant != null)
                 {
-                    PlantsUow uow = new(context);
-
-                    plants = uow.PlantRepository.GetAll();
-
-                    PlantModel plantToAdd = new()
-                    {
-                        Name = plantName,
-                        Description = plantDescription
-                    };
-
-                    foreach (var plant in plants)
-                    {
-                        if (plant.Name.ToLower() == plantToAdd.Name.ToLower())
-                        {
-                            MessageBox.Show("This plant already exists!", "Warning");
-                            txtName.Clear();
-                            txtDescription.Clear();
-                            txtInstruction.Clear();
-                            return;
-                        }
-                    }
-
-                    uow.PlantRepository.AddPlant(plantToAdd);
-
-                    InstructionModel instructionToAdd = new()
+                    InstructionModel instructionToAdd = new InstructionModel()
                     {
                         InstructionInfo = instruction,
-                        PlantId = plantToAdd.PlantId
+                        PlantId = currentPlant.PlantId
                     };
 
-                    uow.InstructionRepository.AddInstruction(instructionToAdd);
-
-                    MessageBox.Show($"Added {plantToAdd.Name} successfully.", "Success");
-                    txtName.Clear();
-                    txtDescription.Clear();
-                    txtInstruction.Clear(); 
-
-                    MainWindow mainWindow = new MainWindow(); // Kolla om denna behövs
-                    mainWindow.Show();
-                    Close();
+                    uow.InstructionRepository.AddInstruction(instructionToAdd); 
                 }
             }
+
+            MessageBox.Show("Added instruction", "Success");
         }
+
+        
+
     }
 }

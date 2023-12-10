@@ -124,6 +124,8 @@ namespace GreenThumb
 
             MessageBox.Show($"Deleted {plantToDelete.Name}.", "Success");
             lstPlants.Items.Clear();
+
+            txtSearch.Clear();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
